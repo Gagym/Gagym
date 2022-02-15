@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.gagym.mybatis.inter.IClassInsertDAO">
+
+	<!-- 운동종목 -->
+	<select id="sportList" resultType="com.gagym.dto.SportDTO">				<!-- id 인터페이스에 있는 함수명과 동일 -->
+		SELECT SPORT_NO AS SPORTNO, SPORT_NAME AS SPORTNAME
+		FROM SPORT
+	</select>
+
+	<!-- 강좌/강좌시간 등록 -->
+	<insert id="add">
+		{call PRC_CLASS_CLASS_TIME_INSERT(
+		#{insNo}, #{sportNo}, #{className}, #{classPath}, #{content}      
+		, #{startDate}, #{endDate}, #{point}, #{bank}, #{account}
+		, #{startTimeNo}, #{endTimeNo} )}
+	</insert>
+	
+	<!-- SELECTBOX - 타임목록 -->
+   <select id="timeList" resultType="com.gagym.dto.TimeDTO">
+      SELECT TIME_NO AS TIMENO, START_TIME AS STARTTIME, END_TIME AS ENDTIME
+      FROM TIME
+   </select>
+	
+	
+
+</mapper>

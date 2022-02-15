@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gagym.mybatis.inter.IOnedayDAO">
+
+<!-- 원데이 리스트 -->
+<select id="list" resultType="com.gagym.dto.OnedayDTO">
+	SELECT *
+	FROM
+	    (SELECT ROWNUM AS RN, A.*
+	     FROM
+	        (SELECT O.MEM_NO AS MEMNO, P.MEM_NAME AS MEMNAME, P.ADDR AS ADDR, O.ONEDAY_NAME AS TITLE, TO_CHAR(O.ONEDAY_WISH_DATE, 'YYYY-MM-DD') AS WISHDATE
+	            , O.START_TIME AS STARTTIME, O.END_TIME AS ENDTIME, O.SPORT_NAME AS SPORTNAME, O.ONEDAY_WISH_POINT AS WISHPOINT, O.ONEDAY_NO AS ONEDAYNO, O.ONEDAY_REG_DATE AS REGDATE
+	            , O.ONEDAY_FIX_DATE AS FIXDATE, NVL2(FN_ONEDAYDATE(ONEDAY_NO), '기간만료', '모집가능') AS DATECHECK
+	        FROM ONEDAYVIEW O LEFT JOIN PRIVACY P
+	        ON O.MEM_NO = P.MEM_NO
+	        WHERE O.ONEDAY_FIX_DATE IS NULL 
+	        ORDER BY O.ONEDAY_REG_DATE DESC) A )
+	WHERE RN BETWEEN #{start} AND #{end}
+</select>
+
+<!-- 총 게시글 갯수 출력 -->
+<select id="count" resultType="java.lang.Integer">
+	SELECT COUNT(*) 
+	FROM ONEDAYVIEW O LEFT JOIN PRIVACY P
+	ON O.MEM_NO = P.MEM_NO
+	WHERE O.ONEDAY_FIX_DATE IS NULL
+</select>
+
+
+<!-- 강사 원데이 구직신청 -->
+<insert id="onedayRsvAdd">
+	INSERT INTO ONEDAY_RESERVATION(ONEDAY_RSV_NO, ONEDAY_NO, INS_NO, TIME_NO, REQ_POINT, ONEDAY_RSV_DATE)
+	VALUES('OR-'||SEQ_OR.NEXTVAL, #{onedayNo}, #{insNo}, #{reqTimeNo}, #{reqPoint}, SYSDATE)
+</insert>
+
+<!-- 원데이 신고 -->
+<!-- SELECTBOX - 신고사유목록 -->
+<select id="reasonList" resultType="com.gagym.dto.ReportDTO">
+	SELECT REP_REASON_NO AS REPREASONNO, REP_REASON AS REPREASON
+	FROM REPORT_REASON ORDER BY 1
+</select>
+
+<insert id="onedayReportAdd">
+	{call PRC_ONEDAY_POST_REPORT_INSERT(#{repNo}, #{prmemNo}, #{repReasonNo}, #{repOther})}
+</insert>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

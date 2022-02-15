@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.gagym.mybatis.inter.IMyExerciseOnedayDAO">
+	<!-- 나의 원데이 리스트 -->
+	<select id="myExerciseOneday" resultType="com.gagym.dto.OnedayDTO">
+		SELECT MEM_NO AS MEMNO, SPORT_NAME AS SPORTNAME
+		, TO_CHAR(ONEDAY_WISH_DATE, 'YYYY-MM-DD') AS WISHDATE, START_TIME AS STARTTIME, END_TIME AS ENDTIME
+      	, TO_CHAR(ONEDAY_REG_DATE, 'YYYY-MM-DD') AS REGDATE, ONEDAY_WISH_POINT AS WISHPOINT
+      	, ONEDAY_NO AS ONEDAYNO, ONEDAY_NAME AS TITLE, ONEDAY_CONTENT AS CONTENT
+      	, TO_CHAR(STOP_DATE, 'YYYY-MM-DD') AS STOPDATE, TO_CHAR(ONEDAY_FIX_DATE, 'YYYY-MM-DD') AS FIXDATE
+      	, NVL2(FN_ONEDAYDATE(ONEDAY_NO), '기간만료', '모집 중') AS DATECHECK
+		FROM ONEDAYVIEW
+		WHERE MEM_NO = #{memNo}
+		ORDER BY ONEDAY_WISH_DATE DESC
+	</select>
+	
+	<!-- 원데이 게시글 - 원데이 상세정보 -->
+	<select id="onedayContent" resultType="com.gagym.dto.OnedayDTO">
+		SELECT MEM_NO AS MEMNO, SPORT_NAME AS SPORTNAME, TO_CHAR(ONEDAY_WISH_DATE, 'YYYY-MM-DD') AS WISHDATE
+		      , START_TIME AS STARTTIME, END_TIME AS ENDTIME, TO_CHAR(ONEDAY_REG_DATE, 'YYYY-MM-DD') AS REGDATE
+		      , ONEDAY_WISH_POINT AS WISHPOINT, ONEDAY_NO AS ONEDAYNO, ONEDAY_NAME AS TITLE, ONEDAY_CONTENT AS CONTENT
+		      , TO_CHAR(STOP_DATE, 'YYYY-MM-DD') AS STOPDATE, TO_CHAR(ONEDAY_FIX_DATE, 'YYYY-MM-DD') AS FIXDATE
+		      , ONEDAY_WISH_DATE AS WISHDATE, NVL2(FN_ONEDAYDATE(ONEDAY_NO), '기간만료', ONEDAY_WISH_DATE-2) AS DATECHECK
+		FROM ONEDAYVIEW
+		WHERE ONEDAY_NO = #{onedayNo}
+	</select>
+	
+	<!-- 원데이 게시글 - 개인정보 -->
+	<select id="onedayPrivacy" resultType="com.gagym.dto.MemberDTO">
+		SELECT MEM_NAME AS MEMNAME, MEM_ID AS MEMID, SUBSTR(ADDR, 0, INSTR(ADDR, ' ', 1, 2)) AS ADDR
+			 , FN_GENDER(CRYPTPACK.DECRYPT(SSN2, '1234567')) AS GENDER 
+		FROM PRIVACY
+		WHERE MEM_NO = #{memNo}
+	</select>
+	
+	
+	<!-- 나의 원데이 - 구직 목록 -->
+	<select id="myOnedayReservation" resultType="com.gagym.dto.OnedayReservationDTO">
+		SELECT MEM_NAME AS INSNAME, MEM_ID AS INSID, FN_INSAREA(ODR.INS_NO) AS AREA, FN_INSCLASS(ODR.INS_NO) AS TITLE
+		    , ODR.REQ_POINT AS REQPOINT, T.START_TIME AS REQTIME, ODF.ONEDAY_FIX_DATE AS FIXDATE
+		    , ODR.ONEDAY_RSV_NO AS RSVNO
+		FROM ONEDAY_RESERVATION ODR LEFT JOIN PRIVACY P
+		ON FN_MEM_NO(ODR.INS_NO) = P.MEM_NO
+		        LEFT JOIN TIME T
+		        ON ODR.TIME_NO = T.TIME_NO
+		        LEFT JOIN ONEDAY_FIX ODF
+		        ON ODR.ONEDAY_RSV_NO = ODF.ONEDAY_RSV_NO
+		WHERE ONEDAY_NO = #{onedayNo}
+	</select>
+	
+	<!-- 나의 원데이 - 확정여부 체크 -->
+	<select id="fixCheck" resultType="java.lang.String">
+		SELECT FN_ONEDAYFIXDATE(#{onedayNo})
+		FROM ONEDAY
+		WHERE ONEDAY_NO = #{onedayNo}
+	</select>
+	
+	<!-- 강사 확정 -->
+	<insert id="onedayFixAdd">
+		INSERT INTO ONEDAY_FIX(ONEDAY_FIX_NO, ONEDAY_RSV_NO, ONEDAY_FIX_DATE)
+		VALUES('OF-'||SEQ_OF.NEXTVAL, #{rsvNo}, SYSDATE)
+	</insert>
+
+
+	<!-- 원데이 등록 폼 -->
+	<!-- SELECTBOX - 운동목록 -->
+	<select id="sportList" resultType="com.gagym.dto.SportDTO">
+		SELECT SPORT_NO AS SPORTNO, SPORT_NAME AS SPORTNAME
+		FROM SPORT
+	</select>
+
+	<!-- SELECTBOX - 타임목록 -->
+	<select id="timeList" resultType="com.gagym.dto.TimeDTO">
+		SELECT TIME_NO AS TIMENO, START_TIME AS STARTTIME, END_TIME AS ENDTIME
+		FROM TIME
+	</select>
+	
+	<!-- 원데이 등록 -->
+	<insert id="onedayAdd">
+		INSERT INTO ONEDAY(ONEDAY_NO, MEM_NO, ONEDAY_NAME, SPORT_NO, ONEDAY_WISH_DATE
+						   , START_TIME_NO, END_TIME_NO, ONEDAY_WISH_POINT, ONEDAY_CONTENT, ONEDAY_REG_DATE)
+		VALUES('ONEDAY-'||SEQ_ONEDAY.NEXTVAL, #{memNo}, #{title}, #{sportNo}, TO_DATE(#{wishDate}, 'YYYY-MM-DD')
+				, #{startTimeNo}, #{endTimeNo}, #{wishPoint}, #{content}, SYSDATE)
+	</insert>
+	
+	
+	<!-- 원데이 삭제 -->
+	<delete id="onedayRemove">
+		DELETE FROM ONEDAY
+		WHERE ONEDAY_NO = #{onedayNo}
+	</delete>
+	
+</mapper>

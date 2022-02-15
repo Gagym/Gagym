@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gagym.mybatis.inter.IAdminDAO">
+	<!-- 1. 회원관리 - 회원정보 -->
+	<!-- 회원리스트 -->
+	<select id="memberList" resultType="com.gagym.dto.MemberDTO">
+	   SELECT MEM_NO AS MEMNO, MEM_ID AS MEMID, MEM_NAME AS MEMNAME, TEL, NVL(HOMETEL, '-') AS HOMETEL
+	   		  , NVL(EMAIL,'-') AS EMAIL, FN_GENDER(CRYPTPACK.DECRYPT(SSN2, '1234567')) AS GENDER
+		      , CASE WHEN SUBSTR(CRYPTPACK.DECRYPT(SSN2, '1234567'), 1, 1) IN ('1','2')          
+		             THEN EXTRACT(YEAR FROM SYSDATE)-(TO_NUMBER(SUBSTR(SSN1, 1, 2)) + 1899)
+		             WHEN SUBSTR(CRYPTPACK.DECRYPT(SSN2, '1234567'), 1, 1) IN ('3','4')  
+		             THEN EXTRACT(YEAR FROM SYSDATE)-(TO_NUMBER(SUBSTR(SSN1, 1, 2)) + 1999)
+		             ELSE -1 
+		        END AS AGE
+		      , '(' || ZIP_CODE || ') ' || ADDR || ' ' || DETAIL_ADDR AS ADDR
+		FROM PRIVACY		
+	</select>
+	
+	<!-- 신고누적횟수 -->
+	<select id="countReport" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS COUNTREPORT
+		FROM VIEW_REPORT
+		WHERE PMEM_NO = #{memNo} OR FN_MEM_NO(PMEM_NO) = #{memNo}
+	</select>
+	
+	<!-- 블랙여부 -->
+	<select id="blackCheck" resultType="java.lang.String">
+		SELECT BLACK_NO AS BLACKCHECK
+		FROM BLACKLIST
+		WHERE MEM_NO=#{memNo}
+	</select>
+	
+	<!-- 블랙리스트 등록 -->
+	<insert id="black">
+		INSERT INTO BLACKLIST(BLACK_NO, MEM_NO, BLACK_DATE, ADMIN_ID)
+		VALUES('BLACKLIST-' || SEQ_BLACKLIST.NEXTVAL, #{memNo}, SYSDATE, #{adminId})
+	</insert>
+	
+	<!-- 블랙리스트 해제 -->
+	<delete id="blackCancel">
+		DELETE FROM BLACKLIST
+		WHERE MEM_NO=#{memNo}
+	</delete>
+	
+	
+	<!-- 1. 회원관리 - 강사정보 -->
+	<!-- 강사 리스트 -->
+	<select id="insList" resultType="com.gagym.dto.InstructorDTO">
+		SELECT INS_NO AS INSNO, REQ_NO AS REQNO, INS_NAME AS INSNAME, INS_ID AS INSID, FN_INSAREA(INS_NO) AS AREA
+		, PRC_DATE AS PRCDATE, DROPREASON
+		FROM INSPRIVACYVIEW
+	</select>
+	
+	<!-- 현재 진행 강좌 -->
+	<select id="nowClass" resultType="java.lang.String">
+		SELECT C.CLASS_NAME AS CLASSNAME
+		FROM CLASS C LEFT JOIN CLASS_STOP CS
+			ON C.CLASS_NO = CS.CLASS_NO
+		WHERE INS_NO=#{insNo}
+			AND CLASS_STARTDATE<![CDATA[<]]>SYSDATE
+			AND CLASS_ENDDATE<![CDATA[>]]>SYSDATE
+			AND CS.STOP_DATE IS NULL
+	</select>
+	
+	<!-- 강사 권한박탈 -->
+	<insert id="insDrop">
+		INSERT INTO INSTRUCTOR_DROP(INS_DROP_NO, INS_NO, ADMIN_ID, DROP_REASON, DROP_DATE)
+		VALUES('ID-'||SEQ_ID.NEXTVAL, #{insNo}, #{adminId}, #{dropReason}, SYSDATE)
+	</insert>
+	
+	
+	<!-- 강사 신청 리스트  -->
+	<select id="insReqList" resultType="com.gagym.dto.InstructorDTO">
+		SELECT P.MEM_NAME AS INSNAME, P.MEM_ID AS INSID, IR.REQ_NO AS REQNO, IR.REQ_DATE AS REQDATE
+		FROM INSTRUCTOR_REQUEST IR LEFT JOIN INSTRUCTOR_REQUEST_PRC IRP
+		ON IR.REQ_NO = IRP.REQ_NO
+		        LEFT JOIN PRIVACY P
+		        ON P.MEM_NO = IR.MEM_NO
+		WHERE IRP.PRC_CODE IS NULL
+	</select>
+	
+	
+	<!-- 강사 활동지역 -->
+	<select id="areas" resultType="com.gagym.dto.InstructorDTO">
+		SELECT AREA
+		FROM INSAREAVIEW
+		WHERE REQ_NO=#{reqNo}
+	</select>
+	
+	<!-- 강사 활동경력 -->
+	<select id="experiences" resultType="com.gagym.dto.InstructorDTO">
+		SELECT EXP_CONTENT AS EXPCONTENT
+		, TO_CHAR(EXP_STARTDATE, 'YYYY/MM/DD') AS EXPSTARTDATE
+		, TO_CHAR(EXP_ENDDATE, 'YYYY/MM/DD') AS EXPENDDATE
+		FROM INSEXPVIEW
+		WHERE REQ_NO=#{reqNo}
+		ORDER BY EXPSTARTDATE DESC
+	</select>
+	
+	<!-- 강사 수상경력 -->
+	<select id="prizes" resultType="com.gagym.dto.InstructorDTO">
+		SELECT PRZ_NAME AS PRZNAME, PRZ_MEDAL AS PRZMEDAL
+		, TO_CHAR(PRZ_DATE, 'YYYY/MM/DD') AS PRZDATE
+		FROM INSPRZVIEW
+		WHERE REQ_NO=#{reqNo}
+		ORDER BY PRZDATE DESC
+	</select>
+	
+	<!-- 강사 자격증 -->
+	<select id="certificates" resultType="com.gagym.dto.InstructorDTO">
+		SELECT CER_NAME AS CERNAME, ISSUE_NAME AS ISSUENAME, PROOF_PATH AS PROOFPATH
+		, TO_CHAR(CER_DATE, 'YYYY/MM/DD') AS CERDATE
+		FROM INSCERVIEW
+		WHERE REQ_NO=#{reqNo}
+		ORDER BY CERDATE DESC
+	</select>
+	
+	<!-- 강사 신청 수락 -->
+	<insert id="insReqOk">
+		INSERT INTO INSTRUCTOR_REQUEST_PRC(REQ_PRC_NO, REQ_NO, PRC_CODE, PRC_DATE, ADMIN_ID)
+		VALUES('IRP-'||SEQ_IRP.NEXTVAL, #{reqNo}, 1, SYSDATE, #{adminId})
+	</insert>
+	<!-- 강사 신청 거절 -->
+	<insert id="insReqNo">
+		INSERT INTO INSTRUCTOR_REQUEST_PRC(REQ_PRC_NO, REQ_NO, PRC_CODE, PRC_DATE, ADMIN_ID)
+		VALUES('IRP-'||SEQ_IRP.NEXTVAL, #{reqNo}, 2, SYSDATE, #{adminId})
+	</insert>
+</mapper>
