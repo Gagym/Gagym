@@ -349,7 +349,7 @@
 		
 		<div class="row">
 		
-			<h1 class="TrainerPageTitle">나의강좌</h1>
+			<h1 class="TrainerPageTitle">나의 강좌</h1>
 			
 			<div id="classLink">
 				<a href="classview.action?classNo=${nowClass.classNo }"
