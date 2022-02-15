@@ -1,0 +1,129 @@
+#scheduleList *
+{
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	box-sizeing: border-box;
+}
+#scheduleList
+{
+	width: 1050px;
+	margin: 50px;
+}
+#scheduleList .header
+{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+#scheduleList .year-month
+{
+	font-size: 35px;
+}
+#scheduleList .nav
+{
+	display: flex;
+	border: 1px solid #333333;
+	border-radius: 5px;
+}
+
+#scheduleList .nav-btn
+{
+	width: 28px;
+	height: 30px;
+	border: none;
+	font-size: 16px;
+	line-height: 34px;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+#scheduleList .go-today
+{
+	width: 75px;
+	border-left: 1px solid #333333;
+	border-right: 1px solid #333333;
+}
+
+#scheduleList .days
+{
+	display: flex;
+	margin: 25px 0 10px;
+}
+
+#scheduleList .day
+{
+	width: calc(100% / 7);
+	text-align: center;
+	font-weight: bold;
+}
+
+#scheduleList .dates
+{
+	display: flex;
+	flex-flow: row wrap;
+	border-top: 2px solid #333333;
+	border-right: 2px solid #333333;
+}
+
+#scheduleList .date
+{
+	width: calc(100% / 7);
+	height: 100px;
+	padding: 15px;
+	text-align: right;
+	border-bottom: 2px solid #333333;
+	border-left: 2px solid #333333;
+}
+
+#scheduleList .day:nth-child(7n + 1),
+#scheduleList .date:nth-child(7n + 1)
+{
+	color: #D13E3E;
+}
+
+#scheduleList .day:nth-child(7n),
+#scheduleList .date:nth-child(7n)
+{
+	color: #396EE2;
+}
+
+#scheduleList .other
+{
+	opacity: .3;
+}
+
+#scheduleList .today
+{
+	font-weight: bold;
+}
+
+#scheduleList a:link { color: red; text-decoration: none;}
+#scheduleList a:visited { color: black; text-decoration: none;}
+#scheduleList a:hover { color: blue; text-decoration: underline;}
+
+#scheduleList .ajaxClick
+{
+	cursor: pointer;
+}
+.rsvBox
+{
+	text-align: center;
+}
+
+.classBox
+{
+	display: inline-block;
+	width: 100px;
+	height: 10px;
+	background-color: #ebc9ca;
+	border-radius: 50px;
+}
+.onedayBox
+{
+	display: inline-block;
+	width: 100px;
+	height: 10px;
+	background-color: #c5e4ed;
+	border-radius: 50px;
+}
