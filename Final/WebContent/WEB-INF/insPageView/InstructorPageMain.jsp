@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="css/calendar.css">
 
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Font Awesome icons (free version)-->
 <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
@@ -25,6 +26,10 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/styles.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<script type="text/javascript" src="http://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
 
 <style type="text/css">
 	#outer

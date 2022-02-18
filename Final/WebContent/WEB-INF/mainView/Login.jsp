@@ -61,7 +61,6 @@
    margin: 40px 0 0 25px;
    font-size: 20px;
 }
-   
 
 </style>
 
@@ -105,7 +104,7 @@
       <div id="main">
       
          <div id="title">
-            <a href="" >찾아가는 GYM - 가짐</a>
+			<a href="" >찾아가는 GYM - 가짐</a>
          </div>
             
          <div id="content" style="width: 400px;">

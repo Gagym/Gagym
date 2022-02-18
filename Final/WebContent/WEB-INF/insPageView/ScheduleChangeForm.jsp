@@ -22,6 +22,8 @@
 
 <!-- datepicker 관련 -->
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+
 <script type="text/javascript">
 
 	$(function()
