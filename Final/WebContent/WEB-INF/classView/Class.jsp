@@ -64,8 +64,8 @@
 	<div style="margin-left: 70%;">
 		<select name="col" class="form-control" id="sel">
 		  <option value="CLASS_DATE DESC" <% if(order.equals("CLASS_DATE DESC")){%>selected="selected"<%}%>>강좌등록순</option>	<!-- if문은 option 선택시 그대로 selected 하기위해 -->
-		  <option value="INS_AREA" <% if(order.equals("INS_AREA")){%>selected="selected"<%}%>>활동지역순</option>
-		  <option value="CLASS_POINT" <% if(order.equals("CLASS_POINT")){%>selected="selected"<%}%>>아령순</option>
+		  <option value="INSAREA" <% if(order.equals("INSAREA")){%>selected="selected"<%}%>>활동지역순</option>
+		  <option value="POINT" <% if(order.equals("POINT")){%>selected="selected"<%}%>>아령순</option>
 		</select>
 	</div>
 	<br>

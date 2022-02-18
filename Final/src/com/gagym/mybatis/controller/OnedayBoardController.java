@@ -102,7 +102,7 @@ public class OnedayBoardController
 		// selectBox
 		model.addAttribute("timeList", dao.timeList());
 		
-		return "/WEB-INF/myPageView/OnedayRsvInsertForm.jsp";
+		return "/WEB-INF/onedayView/OnedayRsvInsertForm.jsp";
 	}
 	
 	// 2-2. 원데이 구직 신청

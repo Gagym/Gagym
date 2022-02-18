@@ -59,8 +59,8 @@
 				<div class="fcontent col-md-2">
 					<div class="conTitle" style="font-weight: bolder;">이용메뉴</div>
 					<div><a href="class.action">강좌</a></div>
-					<div><a href="">원데이클래스</a></div>
-					<div><a href="">나의운동</a></div>
+					<div><a href="onedaylist.action">원데이클래스</a></div>
+					<div><a href="myexercise.action">나의운동</a></div>
 				</div>
 						
 				<div class="fcontent col-md-2" style="margin-bottom: 5%;">	
