@@ -81,6 +81,14 @@
 				
 				$("#login").submit();
 			});
+			
+			
+			// 엔터키 입력시 로그인 
+			$("#memPw").keyup(function(e)
+			{
+				if(e.keyCode==13)
+					$("#login").submit();
+			});
 		});
 
 
