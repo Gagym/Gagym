@@ -362,14 +362,14 @@
 			</div>
 			
 			<div id="classBtn">
-				<button type="button" id="classinsert" class="btn-primary">강좌등록</button>
-				<button type="button" class="btn-primary">강좌연장</button>
-				<button type="button" class="btn-primary">강좌폐쇄</button>
+				<button type="button" id="classInsert" class="btn-primary">강좌등록</button>
+				<button type="button" id="classExtend" class="btn-primary">강좌연장</button>
+				<button type="button" id="classClose" class="btn-primary">강좌폐쇄</button>
 			</div>
 			
 			<div id="bottomBtn">
-				<button type="button" class="btn-primary" style="width: 300px;">원데이클래스 구직현황</button>
-				<button type="button" class="btn-primary" style="width: 300px;">정산현황</button>
+				<button type="button" id="onedayRsvList" class="btn-primary" style="width: 300px;">원데이클래스 구직현황</button>
+				<button type="button" id="calculate" class="btn-primary" style="width: 300px;">정산현황</button>
 			</div>
 			
 		</div>
@@ -417,7 +417,7 @@
 		});
 		
 		/* 강좌등록 관련 */
-		$("#classinsert").click(function()
+		$("#classInsert").click(function()
 		{
 			if (($("#classNo").text()) == "")
 			{
@@ -426,6 +426,30 @@
 			{
 				alert("등록된 강좌가 이미 존재합니다.");
 			}
+		});
+		
+		/* 강좌연장 관련 */
+		$("#classExtend").click(function()
+		{
+			
+		});
+		
+		/* 강좌폐쇄 관련 */
+		$("#classClose").click(function()
+		{
+			
+		});
+		
+		/* 원데이클래스 구직현황 관련 */
+		$("#onedayRsvList").click(function()
+		{
+			$(location).attr("href", "onedayrsvlist.action");
+		});
+		
+		/* 정산현황 관련 */
+		$("#calculate").click(function()
+		{
+			
 		});
 		
 	});

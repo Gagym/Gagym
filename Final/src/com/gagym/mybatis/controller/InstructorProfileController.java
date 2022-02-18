@@ -401,5 +401,11 @@ public class InstructorProfileController
 		
 		return mav;
 	}
-		
+	
+	// 원데이 구직현황
+	@RequestMapping(value = "/onedayrsvlist.action", method = RequestMethod.GET)
+	public String OnedayRsvList(Model model)
+	{
+		return "/WEB-INF/insPageView/OnedayRsvList.jsp";
+	}
 }
