@@ -165,7 +165,7 @@
 						style="${insNo==cla.insNo? 'display:none' : '' }"
 						onclick="location.href='classreportform.action?classNo=${cla.classNo}'">신고</button> 
 						<button type="button" class="btn btn-info" 
-						onclick="location.href='classlist.action?order=CLASS_DATE DESC'">돌아가기</button> 
+						onclick="location.href='instructormain.action'">돌아가기</button> 
 					</div>
 					
 					

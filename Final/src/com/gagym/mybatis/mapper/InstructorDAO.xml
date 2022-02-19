@@ -83,6 +83,23 @@
 		AND CS.STOP_DATE IS NULL
 	</select>
 	
+	<!-- 강사의 강좌 내역 리스트 -->
+	<select id="insMyClass" resultType="com.gagym.dto.ClassDTO">
+		SELECT CLASS_NO AS CLASSNO, INS_NO AS INSNO, CLASS_NAME AS CLASSNAME
+			  , TO_CHAR(CLASS_STARTDATE, 'YYYY-MM-DD') AS STARTDATE 
+			  , TO_CHAR(CLASS_ENDDATE, 'YYYY-MM-DD') AS ENDDATE
+			  , TO_CHAR(CLASS_DATE, 'YYYY-MM-DD') AS REGISTDATE
+		      , CASE WHEN CLASS_NO IN (SELECT CLASS_NO FROM CLASS_STOP ) THEN '중도 폐쇄'
+		             WHEN (SYSDATE - CLASS_STARTDATE) <![CDATA[>=]]> 0 AND (SYSDATE - CLASS_ENDDATE) <![CDATA[<]]> 0 THEN '진행 중'
+		             WHEN (SYSDATE - CLASS_ENDDATE) <![CDATA[>=]]> 0 THEN '강좌 종료'
+		             ELSE '상태 확인'
+				END AS STATUS
+		FROM CLASS
+		WHERE INS_NO = #{insNo}
+		ORDER BY CLASS_DATE 
+	</select>
+	
+	
 	<!-- 최신리뷰 2개 -->
 	<select id="reviews" resultType="com.gagym.dto.ReviewDTO">
 		SELECT CLASS_NO AS CLASSNO, CLASS_NAME AS CLASSNAME, REVIEW_CONTENT AS REVIEWCONTENT

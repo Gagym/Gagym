@@ -2,19 +2,22 @@ package com.gagym.dto;
 
 public class ClassDTO
 {
-	// 회원번호, 강좌번호, 강좌명, 강사번호, 강사명, 강사아이디, 강좌시작날짜, 강좌종료날짜
-	private String memNo, classNo, className, insNo, insName, insId, startDate, endDate;
+	// 회원번호, 강좌번호, 강좌명, 강사번호, 강사명, 강사아이디, 강좌시작날짜, 강좌종료날짜, 강좌
+	private String memNo, classNo, className, insNo, insName, insId, startDate, endDate, registDate;
 	
 	// 강사활동지역,운동종목번호 ,운동종목명, 강좌내용, 강좌사진, 강사사진경로  
 	private String insArea, sportNo, sportName, content, classPath, profilePath;
 	
-	//정산은행, 정산계좌, 강좌첫타임번호, 강좌마지막타임번호
+	// 정산은행, 정산계좌, 강좌첫타임번호, 강좌마지막타임번호
 	private String bank, account, startTimeNo, endTimeNo;
+
+	// 강좌 진행 상태
+	private String status;
 	
-	//강좌수강아령, 강좌첫타임, 강좌마지막타임
+	// 강좌수강아령, 강좌첫타임, 강좌마지막타임
 	private int point, startTime, endTime;
 	
-	//평점
+	// 평점
 	private double grade;
 
 	
@@ -238,12 +241,15 @@ public class ClassDTO
 		this.grade = grade;
 	}
 	
-	
+	public String getStatus()
+	{
+		return status;
+	}
 
+	public void setStatus(String status)
+	{
+		this.status = status;
+	}
 
-
-	
-
-	
 	
 }

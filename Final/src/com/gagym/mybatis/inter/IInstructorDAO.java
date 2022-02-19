@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.gagym.dto.AreaDTO;
+import com.gagym.dto.ClassDTO;
 import com.gagym.dto.InstructorDTO;
 import com.gagym.dto.InstructorScheduleDTO;
 import com.gagym.dto.ReviewDTO;
@@ -20,6 +21,7 @@ public interface IInstructorDAO
 	public int follower(String insNo);
 	public double grade(String insNo);
 	public ReviewDTO nowClass(String insNo);
+
 	public ArrayList<ReviewDTO> reviews(String insNo);
 	public ArrayList<InstructorScheduleDTO> schedules(HashMap<String, String> map);
 	public ArrayList<InstructorScheduleDTO> scheduleBars(HashMap<String, String> map);
@@ -33,4 +35,7 @@ public interface IInstructorDAO
 	public int insPrzAdd(HashMap<String, String> map);
 	public int insExpAdd(HashMap<String, String> map);
 	public int insAreaAdd(HashMap<String, String> map);
+	
+	// 강사의 강좌 내역 조회
+	public ArrayList<ClassDTO> insMyClass(String insNo);
 }

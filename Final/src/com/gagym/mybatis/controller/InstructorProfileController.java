@@ -46,6 +46,7 @@ public class InstructorProfileController
 		try
 		{
 			String insNo = (String)session.getAttribute("insNo");
+			System.out.println(insNo);
 			
 			if (insNo==null)
 			{
@@ -65,7 +66,9 @@ public class InstructorProfileController
 			model.addAttribute("follower", dao.follower(insNo));
 			model.addAttribute("grade", dao.grade(insNo));
 			
-			model.addAttribute("nowClass", dao.nowClass(insNo));
+			//model.addAttribute("nowClass", dao.nowClass(insNo));
+			model.addAttribute("insMyClass", dao.insMyClass(insNo));
+			
 			model.addAttribute("reviews", dao.reviews(insNo));
 			
 			String yearStr = request.getParameter("year");

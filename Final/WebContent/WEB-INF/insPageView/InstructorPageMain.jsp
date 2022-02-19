@@ -357,8 +357,38 @@
 			<h1 class="TrainerPageTitle">나의 강좌</h1>
 			
 			<div id="classLink">
-				<a href="classview.action?classNo=${nowClass.classNo }"
-					style="font-size: 20pt;" id="classNo" >${nowClass.className }</a>
+
+				<table class="table table-bordered table-hover">
+					<tr>
+						<th>강좌명</th>
+						<th>강좌기간</th>
+						<th>진행상태</th>
+					</tr>
+					
+					<c:if test="${insMyClass eq null}">
+						<tr>
+							<td colspan="3">진행한 강좌가 없습니다.</td>
+						</tr>
+					</c:if>
+					
+					<!-- 강사가 등록한 강좌가 있을 때 -->
+					<c:forEach var="cla" items="${insMyClass }">
+						<tr>
+							<!-- 진행 중인 강좌만 강좌 이름에 링크 -->
+							<c:if test="${cla.status == '진행 중'}">
+								<td><a href="classview.action?classNo=${cla.classNo}" style="font-size: 14pt;" id="classNo" class="currentClass">${cla.className }</a></td>
+							</c:if>
+							
+							<c:if test="${cla.status != '진행 중'}">
+								<td>${cla.className }</td>
+							</c:if>
+							
+							<td>${cla.startDate } ~ ${cla.endDate }</td>
+							<td>${cla.status }</td>
+						</tr>		
+					</c:forEach>
+				</table>	
+					
 			</div>
 			
 			<div id="classBtn">
@@ -419,6 +449,8 @@
 		/* 강좌등록 관련 */
 		$("#classInsert").click(function()
 		{
+			// #classNo 를 변경해서 일단 주석
+			/*	 
 			if (($("#classNo").text()) == "")
 			{
 				$(location).attr("href", "classinsertform.action");
@@ -426,12 +458,13 @@
 			{
 				alert("등록된 강좌가 이미 존재합니다.");
 			}
+			 */
 		});
 		
 		/* 강좌연장 관련 */
 		$("#classExtend").click(function()
 		{
-			
+			alert()
 		});
 		
 		/* 강좌폐쇄 관련 */
