@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Header.jsp</title>
-<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Font Awesome icons (free version)-->
 <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
@@ -19,8 +19,6 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/styles.css" rel="stylesheet" />
 
-<!-- datepicker 관련 -->
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 
 <style type="text/css">
 
@@ -38,44 +36,6 @@
 	#navbarResponsive .nav-link {margin: 0 60px;}
 	
 </style>
-<script type="text/javascript">
-
-	$(function()
-	{
-		$("#privacyInsertLink").click(function()
-		{
-			$(location).attr("href", "termslist.action");
-		});
-		
-		$("#loginLink").click(function()
-		{
-			$(location).attr("href", "loginform.action");
-		});
-		
-		$("#logoutLink").click(function()
-		{
-			$(location).attr("href", "logout.action");
-		});
-		
-		$("#myPageLink").click(function()
-		{
-			$(location).attr("href", "mypagemain.action");
-		});
-		
-		$("#insPageLink").click(function()
-		{
-			$(location).attr("href", "instructormain.action");
-		});
-		
-		$("#adminPageLink").click(function()
-		{
-			$(location).attr("href", "adminhome.action");
-		});
-		
-	});
-
-</script>
-
 </head>
 <body>
 
@@ -103,33 +63,32 @@
 							if(memNo==null && admin==null)
 							{
 							%>
-								<input type="button" value="로그인" class="btn" id="loginLink">
-								<input type="button" value="회원가입" class="btn" id="privacyInsertLink">
+								<a href="loginform.action"><input type="button" value="로그인" class="btn" id="loginLink"></a>
+								<a href="termslist.action"><input type="button" value="회원가입" class="btn" id="privacyInsertLink"></a>
 							<%
 							}
 							if(memNo!=null || admin!=null)
 							{
 							%>
-								<input type="button" value="로그아웃" class="btn" id="logoutLink">
+								<a href="logout.action"><input type="button" value="로그아웃" class="btn" id="logoutLink"></a>
 							<%
 							}
 							if(memNo!=null)
 							{
 							%>
-								<input type="button" value="마이페이지" class="btn" id="myPageLink">
+								<a href="mypagemain.action"><input type="button" value="마이페이지" class="btn" id="myPageLink"></a>
 							<%
 							}
 							if(insNo!=null)
 							{
 							%>
-								
-								<input type="button" value="강사 Home" class="btn" id="insPageLink">
+								<a href="instructormain.action"><input type="button" value="강사 Home" class="btn" id="insPageLink"></a>
 							<%
 							}
 							if(admin!=null)
 							{
 							%>
-								<input type="button" value="관리자 Home" class="btn" id="adminPageLink">
+								<a href="adminhome.action"><input type="button" value="관리자 Home" class="btn" id="adminPageLink"></a>
 							<%
 							}
 							%>
