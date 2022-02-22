@@ -353,4 +353,6 @@ public class MyExerciseController
 		return "redirect:myexerciseclass.action";
 		
 	}
+	
+	// 유동 추가
 }
