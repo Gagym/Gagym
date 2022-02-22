@@ -103,7 +103,7 @@
 						<div class="col-md-1"></div>
 						<label for="count" class="col-md-2">누적 수강인원</label> 
 						<input type="text" id="count" class="form-control col-md-3" style="width: 250px;"
-							readonly="readonly" value="${count }" />
+							readonly="readonly" value="${counts }" />
 							
 						 
 						<label for="point" class="col-md-2">아령</label>

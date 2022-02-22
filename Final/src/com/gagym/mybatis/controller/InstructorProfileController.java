@@ -46,7 +46,7 @@ public class InstructorProfileController
 		try
 		{
 			String insNo = (String)session.getAttribute("insNo");
-			System.out.println(insNo);
+			//System.out.println(insNo);
 			
 			if (insNo==null)
 			{

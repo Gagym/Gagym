@@ -43,6 +43,7 @@
 		   FROM INSTRUCTOR_AREA IA LEFT JOIN SIGUNGU S
 		   ON IA.SIGUNGU_NO = S.SIGUNGU_NO
 		   WHERE IA.REQ_NO = IR.REQ_NO
+		   AND IA.PRC_CODE = 1
 		   GROUP BY IA.REQ_NO) AS INSAREA                                     
 		FROM CLASS C LEFT JOIN INSTRUCTOR I
 		ON C.INS_NO = I.INS_NO
@@ -78,11 +79,6 @@
 		AND CLASS_NO = #{classNo}
 	</select>
 	
-	
-	
-	
-	
-	
 	<!-- 추가 -->
 	<!-- 스케줄 바 -->
 	<select id="scheduleBars" resultType="com.gagym.dto.InstructorScheduleDTO">
@@ -115,12 +111,10 @@
 	<!-- AND RSVTIME = #{#rsvTime} -->
 	</select>
 	
-	
 	<!-- 강좌신고 -->
 	<insert id="add">
 		{call PRC_CLASS_POST_REPORT_INSERT(#{repNo},#{prmemNo},#{repReasonNo},#{repOther})}
 	</insert>
-	
 	
 	<!-- SELECTBOX - 신고사유목록 -->
 	<select id="reasonList" resultType="com.gagym.dto.ReportDTO">
