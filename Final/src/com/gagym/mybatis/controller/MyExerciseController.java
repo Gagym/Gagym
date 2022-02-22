@@ -354,5 +354,4 @@ public class MyExerciseController
 		
 	}
 	
-	// test
 }
