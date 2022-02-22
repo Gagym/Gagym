@@ -99,7 +99,6 @@
 		ORDER BY CLASS_DATE 
 	</select>
 	
-	
 	<!-- 최신리뷰 2개 -->
 	<select id="reviews" resultType="com.gagym.dto.ReviewDTO">
 		SELECT CLASS_NO AS CLASSNO, CLASS_NAME AS CLASSNAME, REVIEW_CONTENT AS REVIEWCONTENT
