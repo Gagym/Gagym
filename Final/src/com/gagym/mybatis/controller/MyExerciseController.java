@@ -354,4 +354,7 @@ public class MyExerciseController
 		
 	}
 	
+	// 유동 추가
+
+	// test
 }
