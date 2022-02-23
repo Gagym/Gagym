@@ -21,12 +21,14 @@
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Font Awesome icons (free version)-->
 <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
-<!-- Google fonts-->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+
+<!-- Bootstrap (모달) -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> -->
+
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/styles.css" rel="stylesheet" />
-
+<!-- Datepicker -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 <script type="text/javascript" src="http://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 
@@ -110,9 +112,6 @@
 		margin: 0 45px;
 		display: inline-block;
 	}
-	a:link {text-decoration: none;}
-	a:visited {text-decoration: none;}
-	a:hover {text-decoration: none;}
 	#trainerScheduleModify{margin-left: 80%;}
 	#classLink
 	{
@@ -148,24 +147,14 @@
 	{
 		vertical-align: middle;
 	}
-	.insModal
+
+	.extendModalSubTitle
 	{
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: rgba(0, 0, 0, 0.5);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	.insModalInner
-	{
-		background: white;
-		padding: 24px 16px;
-		border-radius: 4px;
-		width: 320px;
+		font-weight: bold;
+		display: inline-block;
+		width: 70px;
+		text-align: right;
+		padding: 3px 2px;
 	}
 </style>
 
@@ -376,7 +365,7 @@
 						<tr>
 							<!-- 진행 중인 강좌만 강좌 이름에 링크 -->
 							<c:if test="${cla.status == '진행 중'}">
-								<td><a href="classview.action?classNo=${cla.classNo}" style="font-size: 14pt;" id="classNo" class="currentClass">${cla.className }</a></td>
+								<td><a href="classview.action?classNo=${cla.classNo}" style="font-size: 14pt;" id="${cla.classNo }" class="currentClass">${cla.className }</a></td>
 							</c:if>
 							
 							<c:if test="${cla.status != '진행 중'}">
@@ -393,7 +382,7 @@
 			
 			<div id="classBtn">
 				<button type="button" id="classInsert" class="btn-primary">강좌등록</button>
-				<button type="button" id="classExtend" class="btn-primary">강좌연장</button>
+				<button type="button" onclick="extendModal()" class="btn-primary">강좌연장</button>
 				<button type="button" id="classClose" class="btn-primary">강좌폐쇄</button>
 			</div>
 			
@@ -407,6 +396,38 @@
 	</div>
 	
 </div>
+
+<!-- 강좌 연장 모달 -->
+<div class="modal fade" id="classExtendModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<span class="modal-title" id="myModalLabel">
+					<span class="claaName">강좌 이름</span>
+				</span>
+			</div>
+			<div class="modal-body" style="font-size: medium;">
+				<form action="">
+					연장할 날짜를 선택하세요 <br><br>
+					
+					<span class="extendModalSubTitle">시작일</span> :  <input type="date" readonly="readonly" id="extendStartDate" ><br>
+					<span class="extendModalSubTitle">종료일</span> :  <input type="date" id="extendEndDate"><br>
+					<span class="err" style="color: red;"></span><br> 
+				</form>
+			</div>
+			<div class="modal-footer">
+				<div style="display: flex; justify-content: center;">
+					<button type="button" class="btn btn-primary" onclick="">기간 연장하기</button><br>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 
 <c:import url="/WEB-INF/mainView/Footer.jsp"></c:import>
 
@@ -461,12 +482,7 @@
 			 */
 		});
 		
-		/* 강좌연장 관련 */
-		$("#classExtend").click(function()
-		{
-			alert()
-		});
-		
+	
 		/* 강좌폐쇄 관련 */
 		$("#classClose").click(function()
 		{
@@ -486,6 +502,7 @@
 		});
 		
 	});
+	
 	
 	function ajaxRequest(date)
 	{
@@ -510,6 +527,12 @@
 
 	}
 
+	// 기간 연장 모달 함수
+	function extendModal()
+	{
+		$("#classExtendModal").modal('show');
+	}
+	
 </script>
 </body>
 </html>
