@@ -165,4 +165,23 @@ public class AdminController
 		
 		return "redirect:inslist.action";
 	}
+	
+	// 3. 정산
+	@RequestMapping(value = "/callist.action", method = RequestMethod.GET)
+	public String calList(Model model)
+	{
+		//IAdminDAO dao = sqlSession.getMapper(IAdminDAO.class);
+		/*
+		 * ArrayList<InstructorDTO> arr = dao.insList();
+		 * 
+		 * for (InstructorDTO dto : arr) {
+		 * dto.setClassName(dao.nowClass(dto.getInsNo())); }
+		 * 
+		 * model.addAttribute("insList", arr);
+		 * 
+		 * model.addAttribute("insReqList", dao.insReqList());
+		 */
+
+		return "/WEB-INF/adminView/CalculateInstructor.jsp";
+	}
 }

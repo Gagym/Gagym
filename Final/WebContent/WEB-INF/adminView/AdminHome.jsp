@@ -47,7 +47,7 @@
 		<br>
 		<div class="row">
 			<div class="col-md-3"></div>
-			<button class="btn btn-primary btn-xl text-uppercase col-md-6" onclick="location.href='.action'">정산</button>
+			<button class="btn btn-primary btn-xl text-uppercase col-md-6" onclick="location.href='callist.action'">정산</button>
 		</div>
 		<br>
 		<div class="row">
