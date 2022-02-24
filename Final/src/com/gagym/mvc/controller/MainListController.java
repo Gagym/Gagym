@@ -33,24 +33,22 @@ public class MainListController implements Controller
 		ArrayList<InstructorDTO> insList = new ArrayList<InstructorDTO>();
 		try
 		{
-			
-			  onedayList = dao.onedayList();
-			  classList = dao.classList();
-			  insList = dao.insList();
-			  
-			  mav.addObject("onedayList", onedayList);
-			  mav.addObject("classList", classList);
-			  mav.addObject("insList", insList);
-			  
-			  mav.setViewName("/WEB-INF/mainView/Main.jsp");
-			 
-			
+
+			onedayList = dao.onedayList();
+			classList = dao.classList();
+			insList = dao.insList();
+
+			mav.addObject("onedayList", onedayList);
+			mav.addObject("classList", classList);
+			mav.addObject("insList", insList);
+
+			mav.setViewName("/WEB-INF/mainView/Main.jsp");
+
 		} catch (Exception e)
 		{
 			System.out.println(e.toString());
 		}
-		
-		
+
 		return mav;
 	}
 }

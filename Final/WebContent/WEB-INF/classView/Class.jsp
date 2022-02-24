@@ -20,7 +20,7 @@
 	}
 	#inner
 	{
-		width:800px;
+		width:1100px;
 	    margin: auto;
 	    padding: 100px 0;
 	}
@@ -63,9 +63,9 @@
 	<br>
 	<div style="margin-left: 70%;">
 		<select name="col" class="form-control" id="sel">
-		  <option value="CLASS_DATE DESC" <% if(order.equals("CLASS_DATE DESC")){%>selected="selected"<%}%>>강좌등록순</option>	<!-- if문은 option 선택시 그대로 selected 하기위해 -->
-		  <option value="INSAREA" <% if(order.equals("INSAREA")){%>selected="selected"<%}%>>활동지역순</option>
-		  <option value="POINT" <% if(order.equals("POINT")){%>selected="selected"<%}%>>아령순</option>
+			<option value="CLASS_DATE DESC" <% if(order.equals("CLASS_DATE DESC")){%>selected="selected"<%}%>>강좌등록순</option>	<!-- if문은 option 선택시 그대로 selected 하기위해 -->
+			<option value="INSAREA" <% if(order.equals("INSAREA")){%>selected="selected"<%}%>>활동지역순</option>
+			<option value="POINT" <% if(order.equals("POINT")){%>selected="selected"<%}%>>아령순</option>
 		</select>
 	</div>
 	<br>
@@ -74,20 +74,21 @@
 		<c:forEach var="cla" items="${classList }">
 			<div class="col-md-4" style="margin-bottom: 30px;">
 				<div class="card" style=" margin: auto;">
-					<div class="card-header">
+					<div class="card-header card-title">
 						<a id="class" href="classview.action?classNo=${cla.classNo }">${cla.className }</a>
 					</div>
 					<div class="card-body">
-						<h6 class="card-title">시작날짜: ${cla.startDate }</h6>
-						<h6 class="card-title" id="endDate">종료날짜: ${cla.endDate }</h6>
-						<h6 class="card-title">활동지역: ${cla.insArea }</h6>
-						<h6 class="card-title">운동종목: ${cla.sportName }</h6>
-						<h6 class="card-title">강좌평점: ${cla.grade }</h6>
-						<h6 class="card-title">아령개수: ${cla.point }</h6>
-						<h6 class="card-title">강사이름: ${cla.insName }(${cla.insId })</h6>
-						<h6 class="card-title"> ${cla.profilePath }
+						<span class="card-title">진행상태:</span> ${cla.status }<br>
+						<span class="card-title">시작날짜:</span> ${cla.startDate }<br>
+						<span class="card-title" id="endDate">종료날짜:</span> ${cla.endDate }<br>
+						<span class="card-title">활동지역:</span> ${cla.insArea }<br>
+						<span class="card-title">운동종목:</span> ${cla.sportName }<br>
+						<span class="card-title">강좌평점:</span> ${cla.grade }<br>
+						<span class="card-title">아령개수:</span> ${cla.point }<br>
+						<span class="card-title">강사이름:</span> ${cla.insName }(${cla.insId })<br>
+						<span class="card-title">
 							<img src="${cla.profilePath }" class="card-img-top embed-responsive-item" alt="강사프로필">
-						</h6>
+						</span>
 					</div>
 				</div>
 			</div>

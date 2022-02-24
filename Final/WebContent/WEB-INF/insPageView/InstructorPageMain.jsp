@@ -363,15 +363,7 @@
 					<!-- 강사가 등록한 강좌가 있을 때 -->
 					<c:forEach var="cla" items="${insMyClass }">
 						<tr>
-							<!-- 진행 중인 강좌만 강좌 이름에 링크 -->
-							<c:if test="${cla.status == '진행 중'}">
-								<td><a href="classview.action?classNo=${cla.classNo}" style="font-size: 14pt;" id="${cla.classNo }" class="currentClass">${cla.className }</a></td>
-							</c:if>
-							
-							<c:if test="${cla.status != '진행 중'}">
-								<td>${cla.className }</td>
-							</c:if>
-							
+							<td><a href="classview.action?classNo=${cla.classNo}" style="font-size: 14pt;" id="${cla.classNo }" class="currentClass">${cla.className }</a></td>
 							<td>${cla.startDate } ~ ${cla.endDate }</td>
 							<td>${cla.status }</td>
 						</tr>		
