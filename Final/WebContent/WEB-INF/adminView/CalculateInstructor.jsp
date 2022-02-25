@@ -37,6 +37,12 @@
 	margin: auto;
 	padding: 100px 0;
 }
+
+.calc-btn
+{
+	float: right;
+	margin-left: 5px;
+}
 </style>
 
 <script type="text/javascript">
@@ -59,7 +65,7 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>체크박스</th>
+					<th>선택</th>
 					<th>강사이름(아이디)</th>
 					<th>이번달 정산아령</th>
 					<th>아령 환전 금액</th>
@@ -70,14 +76,36 @@
 			</thead>
 			<tbody>
 				<tr>
-						<td>체크박스</td>
+						<td><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"></td>
 						<td>최현정</td>
 						<td>500</td>
 						<td>500,000</td>
 						<!-- <td><button type="button" class="btn btn-info"  value="월별정산내역">월별정산내역</button></td> -->
-						<td><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-info">월별정산내역</a></td>
+						<td><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info">월별정산내역</a></td>
 						<!-- <td><button type="button" class="btn btn-info"  value="보증금내역">보증금내역</button></td> -->
-						<td><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-info">보증금내역</a></td>
+						<td><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info">보증금내역</a></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"></td>
+						<td>최현정</td>
+						<td>500</td>
+						<td>500,000</td>
+						<!-- <td><button type="button" class="btn btn-info"  value="월별정산내역">월별정산내역</button></td> -->
+						<td><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info">월별정산내역</a></td>
+						<!-- <td><button type="button" class="btn btn-info"  value="보증금내역">보증금내역</button></td> -->
+						<td><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info">보증금내역</a></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"></td>
+						<td>최현정</td>
+						<td>500</td>
+						<td>500,000</td>
+						<!-- <td><button type="button" class="btn btn-info"  value="월별정산내역">월별정산내역</button></td> -->
+						<td><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info">월별정산내역</a></td>
+						<!-- <td><button type="button" class="btn btn-info"  value="보증금내역">보증금내역</button></td> -->
+						<td><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info">보증금내역</a></td>
 						<td></td>
 					</tr>
 				<%-- <c:forEach var="member" items="${memberList }">
@@ -100,6 +128,10 @@
 				
 			</tbody>
 		</table>
+		
+		<!-- 정산 버튼 -->
+		<button type="button" class="btn btn-info calc-btn"  value="">일괄 정산</button>
+		<button type="button" class="btn btn-info calc-btn"  value="">선택 정산</button>
 
 			<!-- <a href="#" data-toggle="modal" data-target="#myModal">이미지 모달띄우기</a> -->
 
