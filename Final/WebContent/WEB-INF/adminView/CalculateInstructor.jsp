@@ -24,7 +24,8 @@
 <!-- For modal -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script> -->
 
 
 <style type="text/css">
@@ -138,7 +139,7 @@
 
 			<div class="modal fade" id="myModal" data-backdrop="static"
 				data-keyboard="false">
-				<div class="modal-dialog modal-xl modal-dialog-centered">
+				<div class="modal-dialog modal-lg modal-dialog-centered">
 					<div class="modal-content">
 
 						<!-- Modal Header -->
