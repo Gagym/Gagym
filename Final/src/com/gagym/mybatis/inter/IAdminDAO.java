@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.gagym.dto.InstructorCalcDTO;
 import com.gagym.dto.InstructorDTO;
 import com.gagym.dto.MemberDTO;
 
@@ -41,4 +42,7 @@ public interface IAdminDAO
 	public int insReqOk(InstructorDTO dto);
 	
 	public int insReqNo(InstructorDTO dto);
+	
+	// 정산 - 강사 정산리스트
+	public ArrayList<InstructorCalcDTO> insCalcList();
 }

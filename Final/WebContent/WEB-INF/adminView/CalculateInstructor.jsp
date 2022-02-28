@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>	<!-- 금액 표시 lib -->
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
@@ -25,7 +26,7 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 
 
 <style type="text/css">
@@ -72,61 +73,19 @@
 					<th>아령 환전 금액</th>
 					<th>월별 정산 내역</th>
 					<th>보증금 내역</th>
-					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-						<td><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"></td>
-						<td>최현정</td>
-						<td>500</td>
-						<td>500,000</td>
-						<!-- <td><button type="button" class="btn btn-info"  value="월별정산내역">월별정산내역</button></td> -->
-						<td><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info">월별정산내역</a></td>
-						<!-- <td><button type="button" class="btn btn-info"  value="보증금내역">보증금내역</button></td> -->
-						<td><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info">보증금내역</a></td>
-						<td></td>
-					</tr>
+				<c:forEach var="ins" items="${insCalcList }">
 					<tr>
-						<td><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"></td>
-						<td>최현정</td>
-						<td>500</td>
-						<td>500,000</td>
-						<!-- <td><button type="button" class="btn btn-info"  value="월별정산내역">월별정산내역</button></td> -->
+						<td><input class="form-check-input" type="checkbox" value="${ins.insNo }" id="flexCheckChecked"></td>
+						<td>${ins.insName }(${ins.memId })</td>
+						<td>${ins.classPoint }</td>
+						<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${ins.classPoint * 1000}" /></td>
 						<td><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info">월별정산내역</a></td>
-						<!-- <td><button type="button" class="btn btn-info"  value="보증금내역">보증금내역</button></td> -->
 						<td><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info">보증금내역</a></td>
-						<td></td>
 					</tr>
-					<tr>
-						<td><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"></td>
-						<td>최현정</td>
-						<td>500</td>
-						<td>500,000</td>
-						<!-- <td><button type="button" class="btn btn-info"  value="월별정산내역">월별정산내역</button></td> -->
-						<td><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info">월별정산내역</a></td>
-						<!-- <td><button type="button" class="btn btn-info"  value="보증금내역">보증금내역</button></td> -->
-						<td><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-info">보증금내역</a></td>
-						<td></td>
-					</tr>
-				<%-- <c:forEach var="member" items="${memberList }">
-					<tr>
-						<td>${member.memName }(${member.memId })</td>
-						<td>${member.age }</td>
-						<td>${member.tel }</td>
-						<td>${member.hometel }</td>
-						<td>${member.addr }</td>
-						<td>${member.email }</td>
-						<td>${member.countReport }</td>
-						<td>
-							<button type="button" class="btn btn-danger black" value="${member.memNo }"
-							style="${member.blackCheck==null?'':'display:none'}">블랙</button>
-							<button type="button" class="btn btn-info blackCancel" value="${member.memNo }"
-							style="${member.blackCheck==null?'display:none':''}">블랙해제</button>
-						</td>
-					</tr>
-				</c:forEach> --%>
-				
+				</c:forEach>
 			</tbody>
 		</table>
 		
@@ -151,47 +110,47 @@
 						<!-- Modal body -->
 						<div class="modal-body">
 							<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>정산날짜</th>
-					<th>지급날짜</th>
-					<th>정산아령</th>
-					<th>아령 환전 금액</th>
-					<th>입금 계좌</th>
-					<th>정산 처리 상황</th>
-					<th>월별 정산 상세 내역</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-						<td>21.12.10</td>
-						<td>21.12.15</td>
-						<td>500</td>
-						<td>500,000</td>
-						<td>국민 xxxx - xxx</td>
-						<td>정산중</td>
-						<td><a href="#" data-toggle="modal" data-target="#doubleModal" class="btn btn-info">월별 정산 상세 내역</a></td>
-					</tr>
-				<%-- <c:forEach var="member" items="${memberList }">
-					<tr>
-						<td>${member.memName }(${member.memId })</td>
-						<td>${member.age }</td>
-						<td>${member.tel }</td>
-						<td>${member.hometel }</td>
-						<td>${member.addr }</td>
-						<td>${member.email }</td>
-						<td>${member.countReport }</td>
-						<td>
-							<button type="button" class="btn btn-danger black" value="${member.memNo }"
-							style="${member.blackCheck==null?'':'display:none'}">블랙</button>
-							<button type="button" class="btn btn-info blackCancel" value="${member.memNo }"
-							style="${member.blackCheck==null?'display:none':''}">블랙해제</button>
-						</td>
-					</tr>
-				</c:forEach> --%>
-				
-			</tbody>
-		</table>
+								<thead>
+									<tr>
+										<th>정산날짜</th>
+										<th>지급날짜</th>
+										<th>정산아령</th>
+										<th>아령 환전 금액</th>
+										<th>입금 계좌</th>
+										<th>정산 처리 상황</th>
+										<th>월별 정산 상세 내역</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+											<td>21.12.10</td>
+											<td>21.12.15</td>
+											<td>500</td>
+											<td>500,000</td>
+											<td>국민 xxxx - xxx</td>
+											<td>정산중</td>
+											<td><a href="#" data-toggle="modal" data-target="#doubleModal" class="btn btn-info">월별 정산 상세 내역</a></td>
+										</tr>
+									<%-- <c:forEach var="member" items="${memberList }">
+										<tr>
+											<td>${member.memName }(${member.memId })</td>
+											<td>${member.age }</td>
+											<td>${member.tel }</td>
+											<td>${member.hometel }</td>
+											<td>${member.addr }</td>
+											<td>${member.email }</td>
+											<td>${member.countReport }</td>
+											<td>
+												<button type="button" class="btn btn-danger black" value="${member.memNo }"
+												style="${member.blackCheck==null?'':'display:none'}">블랙</button>
+												<button type="button" class="btn btn-info blackCancel" value="${member.memNo }"
+												style="${member.blackCheck==null?'display:none':''}">블랙해제</button>
+											</td>
+										</tr>
+									</c:forEach> --%>
+									
+								</tbody>
+							</table>
 						</div>
 
 						<!-- Modal footer -->

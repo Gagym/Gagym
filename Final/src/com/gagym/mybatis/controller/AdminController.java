@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.gagym.dto.ClassReservationDTO;
+import com.gagym.dto.InstructorCalcDTO;
 import com.gagym.dto.InstructorDTO;
 import com.gagym.dto.MemberDTO;
 import com.gagym.mybatis.inter.IAdminDAO;
@@ -170,17 +171,15 @@ public class AdminController
 	@RequestMapping(value = "/callist.action", method = RequestMethod.GET)
 	public String calList(Model model)
 	{
-		//IAdminDAO dao = sqlSession.getMapper(IAdminDAO.class);
-		/*
-		 * ArrayList<InstructorDTO> arr = dao.insList();
-		 * 
-		 * for (InstructorDTO dto : arr) {
-		 * dto.setClassName(dao.nowClass(dto.getInsNo())); }
-		 * 
-		 * model.addAttribute("insList", arr);
-		 * 
-		 * model.addAttribute("insReqList", dao.insReqList());
-		 */
+		IAdminDAO dao = sqlSession.getMapper(IAdminDAO.class);
+
+		// 강사... 정지당하거나 그런 사람 안 나오게 쿼리 수정
+		
+		// -- 14일까지는 이전달부터 이달 10일까지를 나타내는 쿼리
+		// -- 15일부터 월 말까지는 당월 11일부터 SYSDATE까지 아령 정산한 것 나오게
+		ArrayList<InstructorCalcDTO> insCalcList = dao.insCalcList();
+		
+		model.addAttribute("insCalcList", insCalcList);
 
 		return "/WEB-INF/adminView/CalculateInstructor.jsp";
 	}
