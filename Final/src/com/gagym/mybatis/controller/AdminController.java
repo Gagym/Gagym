@@ -1,6 +1,7 @@
 package com.gagym.mybatis.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +18,8 @@ import com.gagym.dto.InstructorDTO;
 import com.gagym.dto.MemberDTO;
 import com.gagym.mybatis.inter.IAdminDAO;
 import com.gagym.mybatis.inter.IMyExerciseClassDAO;
+
+import sun.security.jca.GetInstance;
 
 @Controller
 public class AdminController
@@ -172,12 +175,67 @@ public class AdminController
 	public String calList(Model model)
 	{
 		IAdminDAO dao = sqlSession.getMapper(IAdminDAO.class);
+		
+		Calendar now = Calendar.getInstance();
+
+		int year = now.get(Calendar.YEAR); 
+		int month = now.get(Calendar.MONTH) +1; 
+		int day = now.get(Calendar.DAY_OF_MONTH);
+		
+		int input_year = year;
+		int input_month = month;
+		
+		String s_date = "";
+		String e_date = "";
+		
+		System.out.println(year + ":" + month + ":" + day);
 
 		// 강사... 정지당하거나 그런 사람 안 나오게 쿼리 수정
 		
 		// -- 14일까지는 이전달부터 이달 10일까지를 나타내는 쿼리
+		/*if (day < 10)
+		{
+			input_year = year - 2000;
+			input_month = month - 1;
+			e_date = "SYSDATE";
+			s_date = input_year + "/" + input_month + "/" + 10;
+			if(month == 1) // 1월이면 년도-1, 월 12월
+			{
+				s_date = input_year-1 + "/" + 12 + "/" + 10;
+			}
+		}
+		else if (day >= 10 && day <= 14)
+		{
+			input_year = year - 2000;
+			input_month = month - 1;
+			e_date = input_year + "/" + month + "/" + 11;
+			s_date = input_year + "/" + input_month + "/" + 10;
+			if(month == 1) // 1월이면 년도-1, 월 12월
+			{
+				s_date = input_year-1 + "/" + 12 + "/" + 10;
+			}
+		}*/
+		if (day <= 14)
+		{
+			input_year = year - 2000;
+			input_month = month - 1;
+			e_date = input_year + "/" + month + "/" + 11;
+			s_date = input_year + "/" + input_month + "/" + 10;
+			if(month == 1) // 1월이면 년도-1, 월 12월
+			{
+				s_date = input_year-1 + "/" + 12 + "/" + 10;
+			}
+		}
 		// -- 15일부터 월 말까지는 당월 11일부터 SYSDATE까지 아령 정산한 것 나오게
-		ArrayList<InstructorCalcDTO> insCalcList = dao.insCalcList();
+		else
+		{
+			e_date = "SYSDATE";
+			s_date = year - 2000 + "/" + month + "/" + 10;
+		}
+
+		System.out.println(s_date + ":" + e_date);	
+		//ArrayList<InstructorCalcDTO> insCalcList = dao.insCalcList();
+		ArrayList<InstructorCalcDTO> insCalcList = dao.insCalcList_p(s_date, e_date);
 		
 		model.addAttribute("insCalcList", insCalcList);
 

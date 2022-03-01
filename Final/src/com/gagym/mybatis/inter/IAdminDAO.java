@@ -45,4 +45,5 @@ public interface IAdminDAO
 	
 	// 정산 - 강사 정산리스트
 	public ArrayList<InstructorCalcDTO> insCalcList();
+	public ArrayList<InstructorCalcDTO> insCalcList_p(@Param("s_date") String s_date, @Param("e_date") String e_date);
 }
