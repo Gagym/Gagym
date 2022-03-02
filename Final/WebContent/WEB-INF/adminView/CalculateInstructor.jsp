@@ -63,6 +63,8 @@
 <script type="text/javascript">
 	$(document).ready(function() 
 	{
+		/* 선택/일괄정산 버튼 눌렀을 때 10일에서 14일 사이에만 정산 기능 수행
+		아닐 경우 alert 띄우기*/
 		
 	});
 	function monthly_modal(val)
@@ -275,25 +277,21 @@
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>정산날짜</th>
-									<th>지급날짜</th>
-									<th>정산아령</th>
-									<th>아령 환전 금액</th>
-									<th>입금 계좌</th>
-									<th>정산 처리 상황</th>
-									<th>월별 정산 상세 내역</th>
+									<th>처리날짜</th>
+									<th>입금아령</th>
+									<th>출금아령</th>
+									<th>출금유형</th>
+									<th>남은 아령</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-										<td>21.12.10</td>
-										<td>21.12.15</td>
-										<td>500</td>
-										<td>500,000</td>
-										<td>국민 xxxx - xxx</td>
-										<td>정산중</td>
-										<td><a href="#" data-toggle="modal" data-target="#doubleModal" class="btn btn-info">월별 정산 상세 내역</a></td>
-									</tr>
+									<td>21.12.10</td>
+									<td>21.12.15</td>
+									<td>500</td>
+									<td>500,000</td>
+									<td>국민 xxxx - xxx</td>
+								</tr>
 								<%-- <c:forEach var="member" items="${memberList }">
 									<tr>
 										<td>${member.memName }(${member.memId })</td>
