@@ -65,7 +65,16 @@
 	{
 		/* 선택/일괄정산 버튼 눌렀을 때 10일에서 14일 사이에만 정산 기능 수행
 		아닐 경우 alert 띄우기*/
+		var now = new Date();
+		//alert(now.getDate());
 		
+		$("#totalCalc, #selectCalc").click(function()
+		{
+			if((now.getDate() < 10) || (now.getDate > 14))
+				alert("10일에서 14일 사이에만 정산이 가능합니다.");
+			else
+				alert("정산 가능!");
+		});
 	});
 	function monthly_modal(val)
 	{
@@ -188,8 +197,8 @@
 		</table>
 		
 		<!-- 정산 버튼 -->
-		<button type="button" class="btn btn-info calc-btn"  value="">일괄 정산</button>
-		<button type="button" class="btn btn-info calc-btn"  value="">선택 정산</button>
+		<button type="button" class="btn btn-info calc-btn" id="totalCalc" value="">일괄 정산</button>
+		<button type="button" class="btn btn-info calc-btn" id="selectCalc" value="">선택 정산</button>
 
 			<!-- <a href="#" data-toggle="modal" data-target="#myModal">이미지 모달띄우기</a> -->
 
