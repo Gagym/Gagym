@@ -156,6 +156,14 @@
 		text-align: right;
 		padding: 3px 2px;
 	}
+	
+	#extendName
+	{
+		font-weight: bold;
+		color: #ffc800;
+		font-size: large;
+		
+	}
 </style>
 
 </head>
@@ -363,9 +371,23 @@
 					<!-- 강사가 등록한 강좌가 있을 때 -->
 					<c:forEach var="cla" items="${insMyClass }">
 						<tr>
-							<td><a href="classview.action?classNo=${cla.classNo}" style="font-size: 14pt;" id="${cla.classNo }" class="currentClass">${cla.className }</a></td>
-							<td>${cla.startDate } ~ ${cla.endDate }</td>
-							<td>${cla.status }</td>
+							<!-- 진행 중인 항목에만 클래스 부여 -->
+							<c:if test="${cla.status == '진행 중'}">
+								<td>
+									<a href="classview.action?classNo=${cla.classNo}" style="font-size: 14pt;" id="${cla.classNo }">
+										<span class="ingName">${cla.className }</span>
+									</a>
+								</td>
+								<td><span class="ingSdate">${cla.startDate }</span> ~ <span class="ingEdate">${cla.endDate }</span></td>
+								<td>${cla.status }</td>
+								<input type="hidden" class="ingNo" value="${cla.classNo }" />
+							</c:if>
+							
+							<c:if test="${cla.status != '진행 중'}">
+								<td><a href="classview.action?classNo=${cla.classNo}" style="font-size: 14pt;" id="${cla.classNo }">${cla.className }</a></td>
+								<td>${cla.startDate } ~ ${cla.endDate }</td>
+								<td>${cla.status }</td>
+							</c:if>
 						</tr>		
 					</c:forEach>
 				</table>	
@@ -398,21 +420,21 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<span class="modal-title" id="myModalLabel">
-					<span class="claaName">강좌 이름</span>
+					<span class="className" id="extendName">강좌 이름</span>
 				</span>
 			</div>
 			<div class="modal-body" style="font-size: medium;">
 				<form action="">
 					연장할 날짜를 선택하세요 <br><br>
 					
-					<span class="extendModalSubTitle">시작일</span> :  <input type="date" readonly="readonly" id="extendStartDate" ><br>
-					<span class="extendModalSubTitle">종료일</span> :  <input type="date" id="extendEndDate"><br>
+					<span class="extendModalSubTitle">시작일</span> : <input type="date" readonly="readonly" id="extendStartDate" ><br>
+					<span class="extendModalSubTitle">종료일</span> : <input type="date" id="extendEndDate"><br>
 					<span class="err" style="color: red;"></span><br> 
 				</form>
 			</div>
 			<div class="modal-footer">
 				<div style="display: flex; justify-content: center;">
-					<button type="button" class="btn btn-primary" onclick="">기간 연장하기</button><br>
+					<button type="button" class="btn btn-primary" onclick="extendDo()">기간 연장하기</button><br>
 				</div>
 			</div>
 		</div>
@@ -522,9 +544,28 @@
 	// 기간 연장 모달 함수
 	function extendModal()
 	{
+		// 진행중인 강의가 없다면, 알림창을 띄우고 모달은 띄우지 않는다.
+		if($(".ingNo").val() == undefined)
+		{
+			alert("진행중인 강좌가 없습니다.");
+			return;
+		}	
+		
 		$("#classExtendModal").modal('show');
+		
+		$("#extendName").text($(".ingName").text());
+		$("#extendStartDate").attr('value', $(".ingSdate").text());
+		$("#extendEndDate").attr('value', $(".ingEdate").text());
+		$("#extendEndDate").attr('min', $(".ingEdate").text());
+	
 	}
 	
+	// 기간 연장 실행
+	function extendDo()
+	{
+		//alert($("#extendEndDate").val() + " / " + $(".ingNo").val() );
+		$(location).attr("href", "extendclass.action?classNo=" + $(".ingNo").val() + "&eDate=" + $("#extendEndDate").val());
+	}
 </script>
 </body>
 </html>

@@ -301,9 +301,8 @@ public class InstructorProfileController
 		{
 			System.out.println(e.toString());
 		}
-
-		return "/WEB-INF/insPageView/InstructorChangeForm.jsp";
 		
+        return "/WEB-INF/insPageView/InstructorChangeForm.jsp";
 		
 	}
 	
@@ -411,4 +410,27 @@ public class InstructorProfileController
 	{
 		return "/WEB-INF/insPageView/OnedayRsvList.jsp";
 	}
+	
+	//현재 진행중인 강좌 기한 연장
+	@RequestMapping(value = "/extendclass.action", method = RequestMethod.GET)
+	public String classExtend(HttpServletRequest request, Model model)
+	{
+		try
+		{
+			String classNo = request.getParameter("classNo");
+			String endDate = request.getParameter("eDate");
+			
+			IInstructorDAO dao = sqlSession.getMapper(IInstructorDAO.class);
+			
+			dao.classExtend(classNo, endDate);
+			
+		} catch (Exception e)
+		{
+			System.out.println(e.toString());
+		}
+		
+		return "redirect:instructormain.action";
+		
+	}
+		
 }

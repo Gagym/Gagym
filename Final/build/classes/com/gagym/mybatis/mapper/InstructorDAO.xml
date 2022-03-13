@@ -99,6 +99,13 @@
 		ORDER BY CLASS_DATE 
 	</select>
 	
+	<!-- 진행중 강좌 연장 -->
+	<update id="classExtend">
+		UPDATE CLASS
+		SET CLASS_ENDDATE = TO_DATE(#{endDate}, 'YYYY-MM-DD')
+		WHERE CLASS_NO = #{classNo}
+	</update>
+	
 	<!-- 최신리뷰 2개 -->
 	<select id="reviews" resultType="com.gagym.dto.ReviewDTO">
 		SELECT CLASS_NO AS CLASSNO, CLASS_NAME AS CLASSNAME, REVIEW_CONTENT AS REVIEWCONTENT

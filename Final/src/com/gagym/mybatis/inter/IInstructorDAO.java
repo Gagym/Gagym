@@ -3,6 +3,8 @@ package com.gagym.mybatis.inter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.gagym.dto.AreaDTO;
 import com.gagym.dto.ClassDTO;
 import com.gagym.dto.InstructorDTO;
@@ -38,4 +40,7 @@ public interface IInstructorDAO
 	
 	// 강사의 강좌 내역 조회
 	public ArrayList<ClassDTO> insMyClass(String insNo);
+	
+	// 현재 진행중인 강좌 연장
+	public int classExtend(@Param("classNo") String classNo, @Param("endDate")String endDate);
 }
